@@ -80,7 +80,7 @@ git config --global http.version HTTP/1.1
     if [ "$CREATE_TARGET_BRANCH_IF_NEEDED" = "true" ]
     then
 
-        if [-z "$BASE_BRANCH"]
+        if [ -z "$BASE_BRANCH" ]
         then
           # Default branch of the repository is cloned. Later on the required branch
           # will be created
