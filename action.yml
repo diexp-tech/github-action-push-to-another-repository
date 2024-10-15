@@ -32,6 +32,12 @@ inputs:
     description: '[Optional] Username/organization for the destination repository'
     required: false
     default: ''
+  base-branch:
+    description:  >-
+      [Optional] set base branch name for the destination repository. Will be used for branch creation.
+      Will not be used if "create-target-branch-if-needed" is false. Defaults to "main"
+    default: main
+    required: false
   target-branch:
     description: >-
       [Optional] set target branch name for the destination repository. Defaults
@@ -67,6 +73,7 @@ runs:
     - '${{ inputs.user-email }}'
     - '${{ inputs.user-name }}'
     - '${{ inputs.destination-repository-username }}'
+    - '${{ inputs.base-branch }}'
     - '${{ inputs.target-branch }}'
     - '${{ inputs.commit-message }}'
     - '${{ inputs.target-directory }}'
