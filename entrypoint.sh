@@ -12,10 +12,11 @@ GITHUB_SERVER="${5}"
 USER_EMAIL="${6}"
 USER_NAME="${7}"
 DESTINATION_REPOSITORY_USERNAME="${8}"
-TARGET_BRANCH="${9}"
-COMMIT_MESSAGE="${10}"
-TARGET_DIRECTORY="${11}"
-CREATE_TARGET_BRANCH_IF_NEEDED="${12}"
+BASE_BRANCH="${9}"
+TARGET_BRANCH="${10}"
+COMMIT_MESSAGE="${11}"
+TARGET_DIRECTORY="${12}"
+CREATE_TARGET_BRANCH_IF_NEEDED="${13}"
 
 if [ -z "$DESTINATION_REPOSITORY_USERNAME" ]
 then
@@ -78,9 +79,15 @@ git config --global http.version HTTP/1.1
 } || {
     if [ "$CREATE_TARGET_BRANCH_IF_NEEDED" = "true" ]
     then
-        # Default branch of the repository is cloned. Later on the required branch
-	# will be created
-        git clone --single-branch --depth 1 "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
+
+        if [ -z "$BASE_BRANCH" ]
+        then
+          # Default branch of the repository is cloned. Later on the required branch
+          # will be created
+          git clone --single-branch --depth 1 "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
+        else
+          git clone --single-branch --depth 1 --branch "$BASE_BRANCH" "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
+        fi
     else
         false
     fi
