@@ -85,8 +85,10 @@ git config --global http.version HTTP/1.1
           # Default branch of the repository is cloned. Later on the required branch
           # will be created
           git clone --single-branch --depth 1 "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
+          echo "[+] Cloned from master"
         else
           git clone --single-branch --depth 1 --branch "$BASE_BRANCH" "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
+          echo "[+] Cloned from $BASE_BRANCH"
         fi
     else
         false
